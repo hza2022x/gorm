@@ -7,9 +7,9 @@
 package sqlx
 
 import (
-	"database/sqlx/driver"
 	"errors"
 	"fmt"
+	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 	"strconv"
 	"time"
@@ -549,7 +549,7 @@ var valuerReflectType = reflect.TypeOf((*driver.Valuer)(nil)).Elem()
 // still use nil pointers to those types to mean nil/NULL, just like
 // string/*string.
 //
-// This function is mirrored in the database/sqlx/driver package.
+// This function is mirrored in the gorm.io/gorm/database/sqlx/driver package.
 func callValuerValue(vr driver.Valuer) (v driver.Value, err error) {
 	if rv := reflect.ValueOf(vr); rv.Kind() == reflect.Pointer &&
 		rv.IsNil() &&

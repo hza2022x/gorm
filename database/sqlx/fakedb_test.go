@@ -6,9 +6,9 @@ package sqlx
 
 import (
 	"context"
-	"database/sqlx/driver"
 	"errors"
 	"fmt"
+	"gorm.io/gorm/database/sqlx/driver"
 	"io"
 	"reflect"
 	"sort"

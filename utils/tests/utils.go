@@ -1,9 +1,9 @@
 package tests
 
 import (
-	"database/sqlx/driver"
 	"fmt"
 	"go/ast"
+	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 	"testing"
 	"time"

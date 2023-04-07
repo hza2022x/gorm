@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"database/sqlx"
+	"gorm.io/gorm/database/sqlx"
 	"time"
 
 	"gorm.io/gorm"
@@ -33,7 +33,7 @@ type User struct {
 
 type Account struct {
 	gorm.Model
-	UserID sql.NullInt64
+	UserID sqlx.NullInt64
 	Number string
 }
 

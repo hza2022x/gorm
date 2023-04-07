@@ -2,7 +2,7 @@ package gorm
 
 import (
 	"context"
-	"database/sqlx"
+	"gorm.io/gorm/database/sqlx"
 
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
@@ -28,10 +28,10 @@ type Plugin interface {
 
 // ConnPool db conns pool interface
 type ConnPool interface {
-	PrepareContext(ctx context.Context, query string) (*sql.Stmt, error)
-	ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error)
-	QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error)
-	QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row
+	PrepareContext(ctx context.Context, query string) (*sqlx.Stmt, error)
+	ExecContext(ctx context.Context, query string, args ...interface{}) (sqlx.Result, error)
+	QueryContext(ctx context.Context, query string, args ...interface{}) (*sqlx.Rows, error)
+	QueryRowContext(ctx context.Context, query string, args ...interface{}) *sqlx.Row
 }
 
 // SavePointerDialectorInterface save pointer interface
@@ -42,12 +42,12 @@ type SavePointerDialectorInterface interface {
 
 // TxBeginner tx beginner
 type TxBeginner interface {
-	BeginTx(ctx context.Context, opts *sql.TxOptions) (*sql.Tx, error)
+	BeginTx(ctx context.Context, opts *sqlx.TxOptions) (*sqlx.Tx, error)
 }
 
 // ConnPoolBeginner conn pool beginner
 type ConnPoolBeginner interface {
-	BeginTx(ctx context.Context, opts *sql.TxOptions) (ConnPool, error)
+	BeginTx(ctx context.Context, opts *sqlx.TxOptions) (ConnPool, error)
 }
 
 // TxCommitter tx committer
@@ -56,11 +56,11 @@ type TxCommitter interface {
 	Rollback() error
 }
 
-// Tx sql.Tx interface
+// Tx sqlx.Tx interface
 type Tx interface {
 	ConnPool
 	TxCommitter
-	StmtContext(ctx context.Context, stmt *sql.Stmt) *sql.Stmt
+	StmtContext(ctx context.Context, stmt *sqlx.Stmt) *sqlx.Stmt
 }
 
 // Valuer gorm valuer interface
@@ -70,13 +70,13 @@ type Valuer interface {
 
 // GetDBConnector SQL db connector
 type GetDBConnector interface {
-	GetDBConn() (*sql.DB, error)
+	GetDBConn() (*sqlx.DB, error)
 }
 
 // Rows rows interface
 type Rows interface {
 	Columns() ([]string, error)
-	ColumnTypes() ([]*sql.ColumnType, error)
+	ColumnTypes() ([]*sqlx.ColumnType, error)
 	Next() bool
 	Scan(dest ...interface{}) error
 	Err() error

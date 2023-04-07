@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"database/sqlx/driver"
 	"fmt"
+	"gorm.io/gorm/database/sqlx/driver"
 	"path/filepath"
 	"reflect"
 	"runtime"

@@ -3,11 +3,11 @@ package schema
 import (
 	"bytes"
 	"context"
-	"database/sqlx"
-	"database/sqlx/driver"
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	"gorm.io/gorm/database/sqlx"
+	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 	"strings"
 	"sync"
@@ -47,7 +47,7 @@ type serializer struct {
 	fieldValue      interface{}
 }
 
-// Scan implements sql.Scanner interface
+// Scan implements sqlx.Scanner interface
 func (s *serializer) Scan(value interface{}) error {
 	s.value = value
 	return nil
@@ -115,7 +115,7 @@ type UnixSecondSerializer struct {
 
 // Scan implements serializer interface
 func (UnixSecondSerializer) Scan(ctx context.Context, field *Field, dst reflect.Value, dbValue interface{}) (err error) {
-	t := sql.NullTime{}
+	t := sqlx.NullTime{}
 	if err = t.Scan(dbValue); err == nil && t.Valid {
 		err = field.Set(ctx, dst, t.Time.Unix())
 	}

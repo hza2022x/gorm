@@ -1,7 +1,7 @@
 package tests_test
 
 import (
-	"database/sqlx"
+	"gorm.io/gorm/database/sqlx"
 	"testing"
 	"time"
 
@@ -90,7 +90,7 @@ func TestUpdateHasOne(t *testing.T) {
 	t.Run("Restriction", func(t *testing.T) {
 		type CustomizeAccount struct {
 			gorm.Model
-			UserID  sql.NullInt64
+			UserID  sqlx.NullInt64
 			Number  string `gorm:"<-:create"`
 			Number2 string
 		}

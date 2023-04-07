@@ -1,9 +1,9 @@
 package gorm
 
 import (
-	"database/sqlx"
 	"errors"
 	"fmt"
+	"gorm.io/gorm/database/sqlx"
 	"reflect"
 	"strings"
 
@@ -472,20 +472,20 @@ func (db *DB) Count(count *int64) (tx *DB) {
 	return
 }
 
-func (db *DB) Row() *sql.Row {
+func (db *DB) Row() *sqlx.Row {
 	tx := db.getInstance().Set("rows", false)
 	tx = tx.callbacks.Row().Execute(tx)
-	row, ok := tx.Statement.Dest.(*sql.Row)
+	row, ok := tx.Statement.Dest.(*sqlx.Row)
 	if !ok && tx.DryRun {
 		db.Logger.Error(tx.Statement.Context, ErrDryRunModeUnsupported.Error())
 	}
 	return row
 }
 
-func (db *DB) Rows() (*sql.Rows, error) {
+func (db *DB) Rows() (*sqlx.Rows, error) {
 	tx := db.getInstance().Set("rows", true)
 	tx = tx.callbacks.Row().Execute(tx)
-	rows, ok := tx.Statement.Dest.(*sql.Rows)
+	rows, ok := tx.Statement.Dest.(*sqlx.Rows)
 	if !ok && tx.DryRun && tx.Error == nil {
 		tx.Error = ErrDryRunModeUnsupported
 	}
@@ -542,7 +542,7 @@ func (db *DB) Pluck(column string, dest interface{}) (tx *DB) {
 	return tx.callbacks.Query().Execute(tx)
 }
 
-func (db *DB) ScanRows(rows *sql.Rows, dest interface{}) error {
+func (db *DB) ScanRows(rows *sqlx.Rows, dest interface{}) error {
 	tx := db.getInstance()
 	if err := tx.Statement.Parse(dest); !errors.Is(err, schema.ErrUnsupportedDataType) {
 		tx.AddError(err)
@@ -587,7 +587,7 @@ func (db *DB) Connection(fc func(tx *DB) error) (err error) {
 // Transaction start a transaction as a block, return error will rollback, otherwise to commit. Transaction executes an
 // arbitrary number of commands in fc within a transaction. On success the changes are committed; if an error occurs
 // they are rolled back.
-func (db *DB) Transaction(fc func(tx *DB) error, opts ...*sql.TxOptions) (err error) {
+func (db *DB) Transaction(fc func(tx *DB) error, opts ...*sqlx.TxOptions) (err error) {
 	panicked := true
 
 	if committer, ok := db.Statement.ConnPool.(TxCommitter); ok && committer != nil {
@@ -630,11 +630,11 @@ func (db *DB) Transaction(fc func(tx *DB) error, opts ...*sql.TxOptions) (err er
 }
 
 // Begin begins a transaction with any transaction options opts
-func (db *DB) Begin(opts ...*sql.TxOptions) *DB {
+func (db *DB) Begin(opts ...*sqlx.TxOptions) *DB {
 	var (
 		// clone statement
 		tx  = db.getInstance().Session(&Session{Context: db.Statement.Context, NewDB: db.clone == 1})
-		opt *sql.TxOptions
+		opt *sqlx.TxOptions
 		err error
 	)
 

@@ -2,9 +2,9 @@ package sqlx
 
 import (
 	"context"
-	"database/sqlx/driver"
 	"errors"
 	"fmt"
+	"gorm.io/gorm/database/sqlx/driver"
 	"io"
 	"reflect"
 	"runtime"
@@ -89,14 +89,14 @@ type NamedArg struct {
 //         where
 //             TimeCreated < @end
 //             and TimeCreated >= @start;`,
-//         sql.Named("start", startTime),
-//         sql.Named("end", endTime),
+//         sqlx.Named("start", startTime),
+//         sqlx.Named("end", endTime),
 //     )
 func Named(name string, value any) NamedArg {
 	// This method exists because the go1compat promise
 	// doesn't guarantee that structs don't grow more fields,
 	// so unkeyed struct literals are a vet error. Thus, we don't
-	// want to allow sql.NamedArg{name, value}.
+	// want to allow sqlx.NamedArg{name, value}.
 	return NamedArg{Name: name, Value: value}
 }
 
@@ -407,7 +407,7 @@ type Scanner interface {
 // Example usage:
 //
 //   var outArg string
-//   _, err := db.ExecContext(ctx, "ProcName", sql.Named("Arg1", sql.Out{Dest: &outArg}))
+//   _, err := db.ExecContext(ctx, "ProcName", sqlx.Named("Arg1", sqlx.Out{Dest: &outArg}))
 type Out struct {
 	_Named_Fields_Required struct{}
 

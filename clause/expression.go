@@ -1,9 +1,9 @@
 package clause
 
 import (
-	"database/sqlx"
-	"database/sqlx/driver"
 	"go/ast"
+	"gorm.io/gorm/database/sqlx"
+	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 )
 
@@ -70,7 +70,7 @@ func (expr Expr) Build(builder Builder) {
 
 	if idx < len(expr.Vars) {
 		for _, v := range expr.Vars[idx:] {
-			builder.AddVar(builder, sql.NamedArg{Value: v})
+			builder.AddVar(builder, sqlx.NamedArg{Value: v})
 		}
 	}
 }
@@ -92,7 +92,7 @@ func (expr NamedExpr) Build(builder Builder) {
 
 	for _, v := range expr.Vars {
 		switch value := v.(type) {
-		case sql.NamedArg:
+		case sqlx.NamedArg:
 			namedMap[value.Name] = value.Value
 		case map[string]interface{}:
 			for k, v := range value {

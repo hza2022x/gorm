@@ -1,8 +1,8 @@
 package gorm
 
 import (
-	"database/sqlx"
-	"database/sqlx/driver"
+	"gorm.io/gorm/database/sqlx"
+	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 	"strings"
 	"time"
@@ -11,7 +11,7 @@ import (
 )
 
 // prepareValues prepare values slice
-func prepareValues(values []interface{}, db *DB, columnTypes []*sql.ColumnType, columns []string) {
+func prepareValues(values []interface{}, db *DB, columnTypes []*sqlx.ColumnType, columns []string) {
 	if db.Statement.Schema != nil {
 		for idx, name := range columns {
 			if field := db.Statement.Schema.LookUpField(name); field != nil {
@@ -41,7 +41,7 @@ func scanIntoMap(mapValue map[string]interface{}, values []interface{}, columns 
 			mapValue[column] = reflectValue.Interface()
 			if valuer, ok := mapValue[column].(driver.Valuer); ok {
 				mapValue[column], _ = valuer.Value()
-			} else if b, ok := mapValue[column].(sql.RawBytes); ok {
+			} else if b, ok := mapValue[column].(sqlx.RawBytes); ok {
 				mapValue[column] = string(b)
 			}
 		} else {
@@ -154,8 +154,8 @@ func Scan(rows Rows, db *DB, mode ScanMode) {
 		*uint, *uint8, *uint16, *uint32, *uint64, *uintptr,
 		*float32, *float64,
 		*bool, *string, *time.Time,
-		*sql.NullInt32, *sql.NullInt64, *sql.NullFloat64,
-		*sql.NullBool, *sql.NullString, *sql.NullTime:
+		*sqlx.NullInt32, *sqlx.NullInt64, *sqlx.NullFloat64,
+		*sqlx.NullBool, *sqlx.NullString, *sqlx.NullTime:
 		for initialized || rows.Next() {
 			initialized = false
 			db.RowsAffected++
@@ -190,7 +190,7 @@ func Scan(rows Rows, db *DB, mode ScanMode) {
 
 			if len(columns) == 1 {
 				// Is Pluck
-				if _, ok := reflect.New(reflectValueType).Interface().(sql.Scanner); (reflectValueType != sch.ModelType && ok) || // is scanner
+				if _, ok := reflect.New(reflectValueType).Interface().(sqlx.Scanner); (reflectValueType != sch.ModelType && ok) || // is scanner
 					reflectValueType.Kind() != reflect.Struct || // is not struct
 					sch.ModelType.ConvertibleTo(schema.TimeReflectType) { // is time
 					sch = nil
@@ -230,9 +230,9 @@ func Scan(rows Rows, db *DB, mode ScanMode) {
 								continue
 							}
 						}
-						values[idx] = &sql.RawBytes{}
+						values[idx] = &sqlx.RawBytes{}
 					} else {
-						values[idx] = &sql.RawBytes{}
+						values[idx] = &sqlx.RawBytes{}
 					}
 				}
 			}

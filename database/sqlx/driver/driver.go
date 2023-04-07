@@ -3,9 +3,9 @@
 // license that can be found in the LICENSE file.
 
 // Package driver defines interfaces to be implemented by database
-// drivers as used by package sql.
+// drivers as used by package sqlx.
 //
-// Most code should use package sql.
+// Most code should use package sqlx.
 //
 // The driver interface has evolved over time. Drivers should implement
 // Connector and DriverContext interfaces.
@@ -94,7 +94,7 @@ type Driver interface {
 	Open(name string) (Conn, error)
 }
 
-// If a Driver implements DriverContext, then sql.DB will call
+// If a Driver implements DriverContext, then sqlx.DB will call
 // OpenConnector to obtain a Connector and then invoke
 // that Connector's Connect method to obtain each needed connection,
 // instead of invoking the Driver's Open method for each connection.
@@ -110,8 +110,8 @@ type DriverContext interface {
 // and can create any number of equivalent Conns for use
 // by multiple goroutines.
 //
-// A Connector can be passed to sql.OpenDB, to allow drivers
-// to implement their own sql.DB constructors, or returned by
+// A Connector can be passed to sqlx.OpenDB, to allow drivers
+// to implement their own sqlx.DB constructors, or returned by
 // DriverContext's OpenConnector method, to allow drivers
 // access to context and to avoid repeated parsing of driver
 // configuration.
@@ -136,7 +136,7 @@ type Connector interface {
 
 	// Driver returns the underlying Driver of the Connector,
 	// mainly to maintain compatibility with the Driver method
-	// on sql.DB.
+	// on sqlx.DB.
 	Driver() Driver
 }
 
@@ -263,13 +263,13 @@ type ConnPrepareContext interface {
 
 // IsolationLevel is the transaction isolation level stored in TxOptions.
 //
-// This type should be considered identical to sql.IsolationLevel along
+// This type should be considered identical to sqlx.IsolationLevel along
 // with any values defined on it.
 type IsolationLevel int
 
 // TxOptions holds the transaction options.
 //
-// This type should be considered identical to sql.TxOptions.
+// This type should be considered identical to sqlx.TxOptions.
 type TxOptions struct {
 	Isolation IsolationLevel
 	ReadOnly  bool

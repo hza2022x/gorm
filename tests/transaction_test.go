@@ -32,7 +32,7 @@ func TestTransaction(t *testing.T) {
 	}
 
 	if sqlTx, ok := tx.Statement.ConnPool.(gorm.TxCommitter); !ok || sqlTx == nil {
-		t.Fatalf("Should return the underlying sql.Tx")
+		t.Fatalf("Should return the underlying sqlx.Tx")
 	}
 
 	tx.Rollback()

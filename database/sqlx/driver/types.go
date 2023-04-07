@@ -223,7 +223,7 @@ var valuerReflectType = reflect.TypeOf((*Valuer)(nil)).Elem()
 // still use nil pointers to those types to mean nil/NULL, just like
 // string/*string.
 //
-// This function is mirrored in the database/sqlx package.
+// This function is mirrored in the gorm.io/gorm/database/sqlx package.
 func callValuerValue(vr Valuer) (v Value, err error) {
 	if rv := reflect.ValueOf(vr); rv.Kind() == reflect.Pointer &&
 		rv.IsNil() &&

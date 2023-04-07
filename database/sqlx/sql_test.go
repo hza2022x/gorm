@@ -6,9 +6,9 @@ package sqlx
 
 import (
 	"context"
-	"database/sqlx/driver"
 	"errors"
 	"fmt"
+	"gorm.io/gorm/database/sqlx/driver"
 	"math/rand"
 	"reflect"
 	"runtime"
@@ -100,7 +100,7 @@ func TestOpenDB(t *testing.T) {
 }
 
 func TestDriverPanic(t *testing.T) {
-	// Test that if driver panics, database/sqlx does not deadlock.
+	// Test that if driver panics, gorm.io/gorm/database/sqlx does not deadlock.
 	db, err := Open("test", fakeDBName)
 	if err != nil {
 		t.Fatalf("Open: %v", err)
@@ -3715,7 +3715,7 @@ func TestIssue20160(t *testing.T) {
 	wg.Wait()
 }
 
-// TestIssue18719 closes the context right before use. The sql.driverConn
+// TestIssue18719 closes the context right before use. The sqlx.driverConn
 // will nil out the ci on close in a lock, but if another process uses it right after
 // it will panic with on the nil ref.
 //

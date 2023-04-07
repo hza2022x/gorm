@@ -1,7 +1,7 @@
 package schema_test
 
 import (
-	"database/sqlx"
+	"gorm.io/gorm/database/sqlx"
 	"time"
 
 	"gorm.io/gorm"
@@ -33,9 +33,9 @@ type (
 )
 
 type AdvancedDataTypeUser struct {
-	ID           sql.NullInt64
-	Name         *sql.NullString
-	Birthday     sql.NullTime
+	ID           sqlx.NullInt64
+	Name         *sqlx.NullString
+	Birthday     sqlx.NullTime
 	RegisteredAt mytime
 	DeletedAt    *mytime
 	Active       mybool

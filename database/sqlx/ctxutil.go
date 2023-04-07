@@ -6,8 +6,8 @@ package sqlx
 
 import (
 	"context"
-	"database/sqlx/driver"
 	"errors"
+	"gorm.io/gorm/database/sqlx/driver"
 )
 
 func ctxDriverPrepare(ctx context.Context, ci driver.Conn, query string) (driver.Stmt, error) {

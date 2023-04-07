@@ -1,14 +1,14 @@
 package migrator
 
-import "database/sqlx"
+import "gorm.io/gorm/database/sqlx"
 
 // Index implements gorm.Index interface
 type Index struct {
 	TableName       string
 	NameValue       string
 	ColumnList      []string
-	PrimaryKeyValue sql.NullBool
-	UniqueValue     sql.NullBool
+	PrimaryKeyValue sqlx.NullBool
+	UniqueValue     sqlx.NullBool
 	OptionValue     string
 }
 

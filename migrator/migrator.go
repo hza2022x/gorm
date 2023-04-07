@@ -2,9 +2,9 @@ package migrator
 
 import (
 	"context"
-	"database/sqlx"
 	"errors"
 	"fmt"
+	"gorm.io/gorm/database/sqlx"
 	"reflect"
 	"regexp"
 	"strings"
@@ -514,7 +514,7 @@ func (m Migrator) ColumnTypes(value interface{}) ([]gorm.ColumnType, error) {
 			err = rows.Close()
 		}()
 
-		var rawColumnTypes []*sql.ColumnType
+		var rawColumnTypes []*sqlx.ColumnType
 		rawColumnTypes, err = rows.ColumnTypes()
 		if err != nil {
 			return err

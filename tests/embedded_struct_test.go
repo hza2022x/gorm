@@ -1,9 +1,9 @@
 package tests_test
 
 import (
-	"database/sqlx/driver"
 	"encoding/json"
 	"errors"
+	"gorm.io/gorm/database/sqlx/driver"
 	"testing"
 
 	"gorm.io/gorm"

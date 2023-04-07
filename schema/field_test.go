@@ -2,7 +2,7 @@ package schema_test
 
 import (
 	"context"
-	"database/sqlx"
+	"gorm.io/gorm/database/sqlx"
 	"reflect"
 	"sync"
 	"testing"
@@ -70,8 +70,8 @@ func TestFieldValuerAndSetter(t *testing.T) {
 	age := myint(10)
 	var nilTime *time.Time
 	newValues2 := map[string]interface{}{
-		"name":       sql.NullString{String: "valuer_and_setter_3", Valid: true},
-		"id":         &sql.NullInt64{Int64: 3, Valid: true},
+		"name":       sqlx.NullString{String: "valuer_and_setter_3", Valid: true},
+		"id":         &sqlx.NullInt64{Int64: 3, Valid: true},
 		"created_at": tests.Now(),
 		"updated_at": nilTime,
 		"deleted_at": time.Now(),
@@ -142,8 +142,8 @@ func TestPointerFieldValuerAndSetter(t *testing.T) {
 	// test valuer and other type
 	age2 := myint(10)
 	newValues2 := map[string]interface{}{
-		"name":       sql.NullString{String: "valuer_and_setter_3", Valid: true},
-		"id":         &sql.NullInt64{Int64: 3, Valid: true},
+		"name":       sqlx.NullString{String: "valuer_and_setter_3", Valid: true},
+		"id":         &sqlx.NullInt64{Int64: 3, Valid: true},
 		"created_at": tests.Now(),
 		"deleted_at": time.Now(),
 		"age":        &age2,
@@ -166,9 +166,9 @@ func TestAdvancedDataTypeValuerAndSetter(t *testing.T) {
 		deletedAt     = mytime(time.Now())
 		isAdmin       = mybool(false)
 		user          = AdvancedDataTypeUser{
-			ID:           sql.NullInt64{Int64: 10, Valid: true},
-			Name:         &sql.NullString{String: name, Valid: true},
-			Birthday:     sql.NullTime{Time: time.Now(), Valid: true},
+			ID:           sqlx.NullInt64{Int64: 10, Valid: true},
+			Name:         &sqlx.NullString{String: name, Valid: true},
+			Birthday:     sqlx.NullTime{Time: time.Now(), Valid: true},
 			RegisteredAt: mytime(time.Now()),
 			DeletedAt:    &deletedAt,
 			Active:       mybool(true),
@@ -193,8 +193,8 @@ func TestAdvancedDataTypeValuerAndSetter(t *testing.T) {
 	newDeletedAt := mytime(time.Now())
 	newIsAdmin := mybool(true)
 	newValues := map[string]interface{}{
-		"id":            sql.NullInt64{Int64: 1, Valid: true},
-		"name":          &sql.NullString{String: name + "rename", Valid: true},
+		"id":            sqlx.NullInt64{Int64: 1, Valid: true},
+		"name":          &sqlx.NullString{String: name + "rename", Valid: true},
 		"birthday":      time.Now(),
 		"registered_at": mytime(time.Now()),
 		"deleted_at":    &newDeletedAt,

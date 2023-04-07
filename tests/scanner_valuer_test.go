@@ -2,8 +2,8 @@ package tests_test
 
 import (
 	"context"
-	"database/sqlx"
-	"database/sqlx/driver"
+	"gorm.io/gorm/database/sqlx"
+	"gorm.io/gorm/database/sqlx/driver"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -25,13 +25,13 @@ func TestScannerValuer(t *testing.T) {
 	}
 
 	data := ScannerValuerStruct{
-		Name:     sql.NullString{String: "name", Valid: true},
-		Gender:   &sql.NullString{String: "M", Valid: true},
-		Age:      sql.NullInt64{Int64: 18, Valid: true},
-		Male:     sql.NullBool{Bool: true, Valid: true},
-		Height:   sql.NullFloat64{Float64: 1.8888, Valid: true},
-		Birthday: sql.NullTime{Time: time.Now(), Valid: true},
-		Allergen: NullString{sql.NullString{String: "Allergen", Valid: true}},
+		Name:     sqlx.NullString{String: "name", Valid: true},
+		Gender:   &sqlx.NullString{String: "M", Valid: true},
+		Age:      sqlx.NullInt64{Int64: 18, Valid: true},
+		Male:     sqlx.NullBool{Bool: true, Valid: true},
+		Height:   sqlx.NullFloat64{Float64: 1.8888, Valid: true},
+		Birthday: sqlx.NullTime{Time: time.Now(), Valid: true},
+		Allergen: NullString{sqlx.NullString{String: "Allergen", Valid: true}},
 		Password: EncryptedData("pass1"),
 		Bytes:    []byte("byte"),
 		Num:      18,
@@ -72,9 +72,9 @@ func TestScannerValuerWithFirstOrCreate(t *testing.T) {
 	}
 
 	data := ScannerValuerStruct{
-		Name:             sql.NullString{String: "name", Valid: true},
-		Gender:           &sql.NullString{String: "M", Valid: true},
-		Age:              sql.NullInt64{Int64: 18, Valid: true},
+		Name:             sqlx.NullString{String: "name", Valid: true},
+		Gender:           &sqlx.NullString{String: "M", Valid: true},
+		Age:              sqlx.NullInt64{Int64: 18, Valid: true},
 		ExampleStruct:    ExampleStruct{"name", "value1"},
 		ExampleStructPtr: &ExampleStruct{"name", "value2"},
 	}
@@ -92,7 +92,7 @@ func TestScannerValuerWithFirstOrCreate(t *testing.T) {
 
 	AssertObjEqual(t, result, data, "Name", "Gender", "Age")
 
-	if err := DB.Where(data).Assign(ScannerValuerStruct{Age: sql.NullInt64{Int64: 18, Valid: true}}).FirstOrCreate(&result).Error; err != nil {
+	if err := DB.Where(data).Assign(ScannerValuerStruct{Age: sqlx.NullInt64{Int64: 18, Valid: true}}).FirstOrCreate(&result).Error; err != nil {
 		t.Errorf("Should not raise any error, but got %v", err)
 	}
 
@@ -142,12 +142,12 @@ func TestInvalidValuer(t *testing.T) {
 
 type ScannerValuerStruct struct {
 	gorm.Model
-	Name             sql.NullString
-	Gender           *sql.NullString
-	Age              sql.NullInt64
-	Male             sql.NullBool
-	Height           sql.NullFloat64
-	Birthday         sql.NullTime
+	Name             sqlx.NullString
+	Gender           *sqlx.NullString
+	Age              sqlx.NullInt64
+	Male             sqlx.NullBool
+	Height           sqlx.NullFloat64
+	Birthday         sqlx.NullTime
 	Allergen         NullString
 	Password         EncryptedData
 	Bytes            []byte
@@ -155,7 +155,7 @@ type ScannerValuerStruct struct {
 	Strings          StringsSlice
 	Structs          StructsSlice
 	Role             Role
-	UserID           *sql.NullInt64
+	UserID           *sqlx.NullInt64
 	User             User
 	EmptyTime        EmptyTime
 	ExampleStruct    ExampleStruct
@@ -296,7 +296,7 @@ type EmptyTime struct {
 }
 
 func (t *EmptyTime) Scan(v interface{}) error {
-	nullTime := sql.NullTime{}
+	nullTime := sqlx.NullTime{}
 	err := nullTime.Scan(v)
 	t.Time = nullTime.Time
 	return err
@@ -307,7 +307,7 @@ func (t EmptyTime) Value() (driver.Value, error) {
 }
 
 type NullString struct {
-	sql.NullString
+	sqlx.NullString
 }
 
 type Point struct {
@@ -343,7 +343,7 @@ func TestGORMValuer(t *testing.T) {
 	}
 
 	if !regexp.MustCompile(`INSERT INTO .user_with_points. \(.name.,.point.\) VALUES \(.+,ST_PointFromText\(.+\)\)`).MatchString(stmt.SQL.String()) {
-		t.Errorf("insert with sql.Expr, but got %v", stmt.SQL.String())
+		t.Errorf("insert with sqlx.Expr, but got %v", stmt.SQL.String())
 	}
 
 	if !reflect.DeepEqual([]interface{}{"jinzhu", "POINT(100 100)"}, stmt.Vars) {
@@ -356,7 +356,7 @@ func TestGORMValuer(t *testing.T) {
 	}).Statement
 
 	if !regexp.MustCompile(`INSERT INTO .user_with_points. \(.name.,.point.\) VALUES \(.+,ST_PointFromText\(.+\)\)`).MatchString(stmt.SQL.String()) {
-		t.Errorf("insert with sql.Expr, but got %v", stmt.SQL.String())
+		t.Errorf("insert with sqlx.Expr, but got %v", stmt.SQL.String())
 	}
 
 	if !reflect.DeepEqual([]interface{}{"jinzhu", "POINT(100 100)"}, stmt.Vars) {
@@ -369,7 +369,7 @@ func TestGORMValuer(t *testing.T) {
 	}).Statement
 
 	if !regexp.MustCompile(`INSERT INTO .user_with_points. \(.Name.,.Point.\) VALUES \(.+,ST_PointFromText\(.+\)\)`).MatchString(stmt.SQL.String()) {
-		t.Errorf("insert with sql.Expr, but got %v", stmt.SQL.String())
+		t.Errorf("insert with sqlx.Expr, but got %v", stmt.SQL.String())
 	}
 
 	if !reflect.DeepEqual([]interface{}{"jinzhu", "POINT(100 100)"}, stmt.Vars) {
@@ -384,7 +384,7 @@ func TestGORMValuer(t *testing.T) {
 	}).Statement
 
 	if !regexp.MustCompile(`UPDATE .user_with_points. SET .name.=.+,.point.=ST_PointFromText\(.+\)`).MatchString(stmt.SQL.String()) {
-		t.Errorf("update with sql.Expr, but got %v", stmt.SQL.String())
+		t.Errorf("update with sqlx.Expr, but got %v", stmt.SQL.String())
 	}
 
 	if !reflect.DeepEqual([]interface{}{"jinzhu", "POINT(100 100)"}, stmt.Vars) {

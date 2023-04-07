@@ -1,8 +1,8 @@
 package tests_test
 
 import (
-	"database/sqlx"
 	"errors"
+	"gorm.io/gorm/database/sqlx"
 	"testing"
 
 	"gorm.io/gorm"
@@ -24,12 +24,12 @@ func TestNamedArg(t *testing.T) {
 	DB.Create(&namedUser)
 
 	var result NamedUser
-	DB.First(&result, "name1 = @name OR name2 = @name OR name3 = @name", sql.Named("name", "jinzhu2"))
+	DB.First(&result, "name1 = @name OR name2 = @name OR name3 = @name", sqlx.Named("name", "jinzhu2"))
 
 	AssertEqual(t, result, namedUser)
 
 	var result2 NamedUser
-	DB.Where("name1 = @name OR name2 = @name OR name3 = @name", sql.Named("name", "jinzhu2")).First(&result2)
+	DB.Where("name1 = @name OR name2 = @name OR name3 = @name", sqlx.Named("name", "jinzhu2")).First(&result2)
 
 	AssertEqual(t, result2, namedUser)
 
@@ -39,13 +39,13 @@ func TestNamedArg(t *testing.T) {
 	AssertEqual(t, result3, namedUser)
 
 	var result4 NamedUser
-	if err := DB.Raw("SELECT * FROM named_users WHERE name1 = @name OR name2 = @name2 OR name3 = @name", sql.Named("name", "jinzhu-none"), sql.Named("name2", "jinzhu2")).Find(&result4).Error; err != nil {
+	if err := DB.Raw("SELECT * FROM named_users WHERE name1 = @name OR name2 = @name2 OR name3 = @name", sqlx.Named("name", "jinzhu-none"), sqlx.Named("name2", "jinzhu2")).Find(&result4).Error; err != nil {
 		t.Errorf("failed to update with named arg")
 	}
 
 	AssertEqual(t, result4, namedUser)
 
-	if err := DB.Exec("UPDATE named_users SET name1 = @name, name2 = @name2, name3 = @name", sql.Named("name", "jinzhu-new"), sql.Named("name2", "jinzhu-new2")).Error; err != nil {
+	if err := DB.Exec("UPDATE named_users SET name1 = @name, name2 = @name2, name3 = @name", sqlx.Named("name", "jinzhu-new"), sqlx.Named("name2", "jinzhu-new2")).Error; err != nil {
 		t.Errorf("failed to update with named arg")
 	}
 
@@ -69,7 +69,7 @@ func TestNamedArg(t *testing.T) {
 	AssertEqual(t, result6, namedUser)
 
 	var result7 NamedUser
-	if err := DB.Where("name1 = @name OR name2 = @name", sql.Named("name", "jinzhu-new")).Where("name3 = 'jinzhu-new3'").First(&result7).Error; err == nil || !errors.Is(err, gorm.ErrRecordNotFound) {
+	if err := DB.Where("name1 = @name OR name2 = @name", sqlx.Named("name", "jinzhu-new")).Where("name3 = 'jinzhu-new3'").First(&result7).Error; err == nil || !errors.Is(err, gorm.ErrRecordNotFound) {
 		t.Errorf("should return record not found error, but got %v", err)
 	}
 
