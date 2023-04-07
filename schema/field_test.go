@@ -2,7 +2,7 @@ package schema_test
 
 import (
 	"context"
-	"database/sql"
+	"database/sqlx"
 	"reflect"
 	"sync"
 	"testing"

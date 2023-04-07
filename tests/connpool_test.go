@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"context"
-	"database/sql"
+	"database/sqlx"
 	"os"
 	"reflect"
 	"testing"

@@ -1,7 +1,7 @@
 package schema_test
 
 import (
-	"database/sql"
+	"database/sqlx"
 	"time"
 
 	"gorm.io/gorm"

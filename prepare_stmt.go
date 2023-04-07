@@ -2,7 +2,7 @@ package gorm
 
 import (
 	"context"
-	"database/sql"
+	"database/sqlx"
 	"sync"
 )
 

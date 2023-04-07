@@ -2,8 +2,8 @@ package tests_test
 
 import (
 	"context"
-	"database/sql"
-	"database/sql/driver"
+	"database/sqlx"
+	"database/sqlx/driver"
 	"encoding/json"
 	"errors"
 	"fmt"

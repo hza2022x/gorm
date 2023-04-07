@@ -1,7 +1,7 @@
 package tests_test
 
 import (
-	"database/sql/driver"
+	"database/sqlx/driver"
 	"encoding/json"
 	"errors"
 	"testing"

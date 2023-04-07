@@ -1,7 +1,7 @@
 package tests_test
 
 import (
-	"database/sql"
+	"database/sqlx"
 	"encoding/json"
 	"errors"
 	"regexp"

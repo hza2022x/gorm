@@ -2,8 +2,8 @@ package schema
 
 import (
 	"context"
-	"database/sql"
-	"database/sql/driver"
+	"database/sqlx"
+	"database/sqlx/driver"
 	"fmt"
 	"reflect"
 	"strconv"

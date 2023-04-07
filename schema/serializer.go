@@ -3,8 +3,8 @@ package schema
 import (
 	"bytes"
 	"context"
-	"database/sql"
-	"database/sql/driver"
+	"database/sqlx"
+	"database/sqlx/driver"
 	"encoding/gob"
 	"encoding/json"
 	"fmt"

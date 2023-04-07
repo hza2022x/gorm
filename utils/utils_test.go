@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"database/sql"
-	"database/sql/driver"
+	"database/sqlx"
+	"database/sqlx/driver"
 	"errors"
 	"math"
 	"strings"

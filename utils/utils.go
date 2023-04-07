@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"database/sql/driver"
+	"database/sqlx/driver"
 	"fmt"
 	"path/filepath"
 	"reflect"

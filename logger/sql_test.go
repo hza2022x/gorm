@@ -1,7 +1,7 @@
 package logger_test
 
 import (
-	"database/sql/driver"
+	"database/sqlx/driver"
 	"encoding/json"
 	"fmt"
 	"regexp"

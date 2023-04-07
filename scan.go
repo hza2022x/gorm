@@ -1,8 +1,8 @@
 package gorm
 
 import (
-	"database/sql"
-	"database/sql/driver"
+	"database/sqlx"
+	"database/sqlx/driver"
 	"reflect"
 	"strings"
 	"time"

@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"database/sql/driver"
+	"database/sqlx/driver"
 	"fmt"
 	"go/ast"
 	"reflect"

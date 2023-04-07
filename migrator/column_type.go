@@ -1,7 +1,7 @@
 package migrator
 
 import (
-	"database/sql"
+	"database/sqlx"
 	"reflect"
 )
 

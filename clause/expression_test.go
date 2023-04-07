@@ -1,7 +1,7 @@
 package clause_test
 
 import (
-	"database/sql"
+	"database/sqlx"
 	"fmt"
 	"reflect"
 	"sync"

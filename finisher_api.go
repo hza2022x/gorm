@@ -1,7 +1,7 @@
 package gorm
 
 import (
-	"database/sql"
+	"database/sqlx"
 	"errors"
 	"fmt"
 	"reflect"

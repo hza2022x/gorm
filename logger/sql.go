@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"database/sql/driver"
+	"database/sqlx/driver"
 	"fmt"
 	"reflect"
 	"regexp"

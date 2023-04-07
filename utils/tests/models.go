@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"database/sql"
+	"database/sqlx"
 	"time"
 
 	"gorm.io/gorm"

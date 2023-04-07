@@ -2,7 +2,7 @@ package migrator
 
 import (
 	"context"
-	"database/sql"
+	"database/sqlx"
 	"errors"
 	"fmt"
 	"reflect"
