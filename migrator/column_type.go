@@ -1,26 +1,26 @@
 package migrator
 
 import (
-	"gorm.io/gorm/database/sqlx"
+	"dbpool"
 	"reflect"
 )
 
 // ColumnType column type implements ColumnType interface
 type ColumnType struct {
-	SQLColumnType      *sqlx.ColumnType
-	NameValue          sqlx.NullString
-	DataTypeValue      sqlx.NullString
-	ColumnTypeValue    sqlx.NullString
-	PrimaryKeyValue    sqlx.NullBool
-	UniqueValue        sqlx.NullBool
-	AutoIncrementValue sqlx.NullBool
-	LengthValue        sqlx.NullInt64
-	DecimalSizeValue   sqlx.NullInt64
-	ScaleValue         sqlx.NullInt64
-	NullableValue      sqlx.NullBool
+	SQLColumnType      *sql.ColumnType
+	NameValue          sql.NullString
+	DataTypeValue      sql.NullString
+	ColumnTypeValue    sql.NullString
+	PrimaryKeyValue    sql.NullBool
+	UniqueValue        sql.NullBool
+	AutoIncrementValue sql.NullBool
+	LengthValue        sql.NullInt64
+	DecimalSizeValue   sql.NullInt64
+	ScaleValue         sql.NullInt64
+	NullableValue      sql.NullBool
 	ScanTypeValue      reflect.Type
-	CommentValue       sqlx.NullString
-	DefaultValueValue  sqlx.NullString
+	CommentValue       sql.NullString
+	DefaultValueValue  sql.NullString
 }
 
 // Name returns the name or alias of the column.

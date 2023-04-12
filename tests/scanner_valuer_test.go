@@ -2,8 +2,8 @@ package tests_test
 
 import (
 	"context"
-	"gorm.io/gorm/database/sqlx"
-	"gorm.io/gorm/database/sqlx/driver"
+	"dbpool"
+	"dbpool/driver"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -15,7 +15,6 @@ import (
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
-	. "gorm.io/gorm/utils/tests"
 )
 
 func TestScannerValuer(t *testing.T) {
@@ -25,13 +24,13 @@ func TestScannerValuer(t *testing.T) {
 	}
 
 	data := ScannerValuerStruct{
-		Name:     sqlx.NullString{String: "name", Valid: true},
-		Gender:   &sqlx.NullString{String: "M", Valid: true},
-		Age:      sqlx.NullInt64{Int64: 18, Valid: true},
-		Male:     sqlx.NullBool{Bool: true, Valid: true},
-		Height:   sqlx.NullFloat64{Float64: 1.8888, Valid: true},
-		Birthday: sqlx.NullTime{Time: time.Now(), Valid: true},
-		Allergen: NullString{sqlx.NullString{String: "Allergen", Valid: true}},
+		Name:     sql.NullString{String: "name", Valid: true},
+		Gender:   &sql.NullString{String: "M", Valid: true},
+		Age:      sql.NullInt64{Int64: 18, Valid: true},
+		Male:     sql.NullBool{Bool: true, Valid: true},
+		Height:   sql.NullFloat64{Float64: 1.8888, Valid: true},
+		Birthday: sql.NullTime{Time: time.Now(), Valid: true},
+		Allergen: NullString{sql.NullString{String: "Allergen", Valid: true}},
 		Password: EncryptedData("pass1"),
 		Bytes:    []byte("byte"),
 		Num:      18,
@@ -72,9 +71,9 @@ func TestScannerValuerWithFirstOrCreate(t *testing.T) {
 	}
 
 	data := ScannerValuerStruct{
-		Name:             sqlx.NullString{String: "name", Valid: true},
-		Gender:           &sqlx.NullString{String: "M", Valid: true},
-		Age:              sqlx.NullInt64{Int64: 18, Valid: true},
+		Name:             sql.NullString{String: "name", Valid: true},
+		Gender:           &sql.NullString{String: "M", Valid: true},
+		Age:              sql.NullInt64{Int64: 18, Valid: true},
 		ExampleStruct:    ExampleStruct{"name", "value1"},
 		ExampleStructPtr: &ExampleStruct{"name", "value2"},
 	}
@@ -92,7 +91,7 @@ func TestScannerValuerWithFirstOrCreate(t *testing.T) {
 
 	AssertObjEqual(t, result, data, "Name", "Gender", "Age")
 
-	if err := DB.Where(data).Assign(ScannerValuerStruct{Age: sqlx.NullInt64{Int64: 18, Valid: true}}).FirstOrCreate(&result).Error; err != nil {
+	if err := DB.Where(data).Assign(ScannerValuerStruct{Age: sql.NullInt64{Int64: 18, Valid: true}}).FirstOrCreate(&result).Error; err != nil {
 		t.Errorf("Should not raise any error, but got %v", err)
 	}
 
@@ -142,12 +141,12 @@ func TestInvalidValuer(t *testing.T) {
 
 type ScannerValuerStruct struct {
 	gorm.Model
-	Name             sqlx.NullString
-	Gender           *sqlx.NullString
-	Age              sqlx.NullInt64
-	Male             sqlx.NullBool
-	Height           sqlx.NullFloat64
-	Birthday         sqlx.NullTime
+	Name             sql.NullString
+	Gender           *sql.NullString
+	Age              sql.NullInt64
+	Male             sql.NullBool
+	Height           sql.NullFloat64
+	Birthday         sql.NullTime
 	Allergen         NullString
 	Password         EncryptedData
 	Bytes            []byte
@@ -155,7 +154,7 @@ type ScannerValuerStruct struct {
 	Strings          StringsSlice
 	Structs          StructsSlice
 	Role             Role
-	UserID           *sqlx.NullInt64
+	UserID           *sql.NullInt64
 	User             User
 	EmptyTime        EmptyTime
 	ExampleStruct    ExampleStruct
@@ -296,7 +295,7 @@ type EmptyTime struct {
 }
 
 func (t *EmptyTime) Scan(v interface{}) error {
-	nullTime := sqlx.NullTime{}
+	nullTime := sql.NullTime{}
 	err := nullTime.Scan(v)
 	t.Time = nullTime.Time
 	return err
@@ -307,7 +306,7 @@ func (t EmptyTime) Value() (driver.Value, error) {
 }
 
 type NullString struct {
-	sqlx.NullString
+	sql.NullString
 }
 
 type Point struct {

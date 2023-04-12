@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"fmt"
-	"gorm.io/gorm/database/sqlx"
+	"dbpool"
 	"reflect"
 	"regexp"
 	"sort"
@@ -715,7 +715,7 @@ func TestPluck(t *testing.T) {
 		AssertEqual(t, tv, users[idx].CreatedAt)
 	}
 
-	var nulltimes []sqlx.NullTime
+	var nulltimes []sql.NullTime
 	if err := DB.Model(User{}).Where("name like ?", "pluck-user%").Pluck("created_at", &nulltimes).Error; err != nil {
 		t.Errorf("got error when pluck time: %v", err)
 	}
@@ -767,7 +767,7 @@ func TestSelect(t *testing.T) {
 	}
 
 	// named arguments
-	r = dryDB.Table("users").Select("COALESCE(age, @default)", sqlx.Named("default", 42)).Find(&User{})
+	r = dryDB.Table("users").Select("COALESCE(age, @default)", sql.Named("default", 42)).Find(&User{})
 	if !regexp.MustCompile(`SELECT COALESCE\(age,.*\) FROM .*users.*`).MatchString(r.Statement.SQL.String()) {
 		t.Fatalf("Build Select with func, but got %v", r.Statement.SQL.String())
 	}

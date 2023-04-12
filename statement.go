@@ -2,9 +2,9 @@ package gorm
 
 import (
 	"context"
+	"dbpool"
+	"dbpool/driver"
 	"fmt"
-	"gorm.io/gorm/database/sqlx"
-	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 	"regexp"
 	"sort"
@@ -170,7 +170,7 @@ func (stmt *Statement) AddVar(writer clause.Writer, vars ...interface{}) {
 		}
 
 		switch v := v.(type) {
-		case sqlx.NamedArg:
+		case sql.NamedArg:
 			stmt.Vars = append(stmt.Vars, v.Value)
 		case clause.Column, clause.Table:
 			stmt.QuoteTo(writer, v)

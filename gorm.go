@@ -2,8 +2,8 @@ package gorm
 
 import (
 	"context"
+	"dbpool"
 	"fmt"
-	"gorm.io/gorm/database/sqlx"
 	"sort"
 	"sync"
 	"time"
@@ -354,14 +354,14 @@ func (db *DB) AddError(err error) error {
 }
 
 // DB returns `*sqlx.DB`
-func (db *DB) DB() (*sqlx.DB, error) {
+func (db *DB) DB() (*sql.DB, error) {
 	connPool := db.ConnPool
 
 	if dbConnector, ok := connPool.(GetDBConnector); ok && dbConnector != nil {
 		return dbConnector.GetDBConn()
 	}
 
-	if sqldb, ok := connPool.(*sqlx.DB); ok {
+	if sqldb, ok := connPool.(*sql.DB); ok {
 		return sqldb, nil
 	}
 

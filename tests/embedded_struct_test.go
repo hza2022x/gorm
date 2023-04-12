@@ -1,13 +1,12 @@
 package tests_test
 
 import (
+	"dbpool/driver"
 	"encoding/json"
 	"errors"
-	"gorm.io/gorm/database/sqlx/driver"
 	"testing"
 
 	"gorm.io/gorm"
-	. "gorm.io/gorm/utils/tests"
 )
 
 func TestEmbeddedStruct(t *testing.T) {

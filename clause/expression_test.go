@@ -1,8 +1,8 @@
 package clause_test
 
 import (
+	"dbpool"
 	"fmt"
-	"gorm.io/gorm/database/sqlx"
 	"reflect"
 	"sync"
 	"testing"
@@ -57,7 +57,7 @@ func TestNamedExpr(t *testing.T) {
 		Result: "create table `users` (`id` int, `name` text)",
 	}, {
 		SQL:          "name1 = @name AND name2 = @name",
-		Vars:         []interface{}{sqlx.Named("name", "jinzhu")},
+		Vars:         []interface{}{sql.Named("name", "jinzhu")},
 		Result:       "name1 = ? AND name2 = ?",
 		ExpectedVars: []interface{}{"jinzhu", "jinzhu"},
 	}, {
@@ -67,7 +67,7 @@ func TestNamedExpr(t *testing.T) {
 		ExpectedVars: []interface{}{"jinzhu"},
 	}, {
 		SQL:          "name1 = @name1 AND name2 = @name2 AND name3 = @name1",
-		Vars:         []interface{}{sqlx.Named("name1", "jinzhu"), sqlx.Named("name2", "jinzhu2")},
+		Vars:         []interface{}{sql.Named("name1", "jinzhu"), sql.Named("name2", "jinzhu2")},
 		Result:       "name1 = ? AND name2 = ? AND name3 = ?",
 		ExpectedVars: []interface{}{"jinzhu", "jinzhu2", "jinzhu"},
 	}, {
@@ -77,7 +77,7 @@ func TestNamedExpr(t *testing.T) {
 		ExpectedVars: []interface{}{"jinzhu", "jinzhu2", "jinzhu"},
 	}, {
 		SQL:          "@@test AND name1 = @name1 AND name2 = @name2 AND name3 = @name1 @notexist",
-		Vars:         []interface{}{sqlx.Named("name1", "jinzhu"), sqlx.Named("name2", "jinzhu2")},
+		Vars:         []interface{}{sql.Named("name1", "jinzhu"), sql.Named("name2", "jinzhu2")},
 		Result:       "@@test AND name1 = ? AND name2 = ? AND name3 = ? @notexist",
 		ExpectedVars: []interface{}{"jinzhu", "jinzhu2", "jinzhu"},
 	}, {
@@ -91,7 +91,7 @@ func TestNamedExpr(t *testing.T) {
 		Result: "create table ? (? ?, ? ?)",
 	}, {
 		SQL:          "name1 = @name AND name2 = @name;",
-		Vars:         []interface{}{sqlx.Named("name", "jinzhu")},
+		Vars:         []interface{}{sql.Named("name", "jinzhu")},
 		Result:       "name1 = ? AND name2 = ?;",
 		ExpectedVars: []interface{}{"jinzhu", "jinzhu"},
 	}, {
@@ -169,7 +169,7 @@ func TestExpression(t *testing.T) {
 			clause.Eq{Column: column, Value: (*int)(nil)},
 			clause.Eq{Column: column, Value: (*bool)(nil)},
 			clause.Eq{Column: column, Value: (interface{})(nil)},
-			clause.Eq{Column: column, Value: sqlx.NullString{String: "", Valid: false}},
+			clause.Eq{Column: column, Value: sql.NullString{String: "", Valid: false}},
 		},
 		Result: "`column-name` IS NULL",
 	}, {

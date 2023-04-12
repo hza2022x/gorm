@@ -2,9 +2,9 @@ package schema
 
 import (
 	"context"
+	"dbpool"
+	"dbpool/driver"
 	"fmt"
-	"gorm.io/gorm/database/sqlx"
-	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 	"strconv"
 	"strings"
@@ -846,7 +846,7 @@ func (field *Field) setupValuerAndSetter() {
 				return nil
 			}
 		default:
-			if _, ok := fieldValue.Elem().Interface().(sqlx.Scanner); ok {
+			if _, ok := fieldValue.Elem().Interface().(sql.Scanner); ok {
 				// pointer scanner
 				field.Set = func(ctx context.Context, value reflect.Value, v interface{}) (err error) {
 					reflectV := reflect.ValueOf(v)
@@ -870,11 +870,11 @@ func (field *Field) setupValuerAndSetter() {
 							v, _ = valuer.Value()
 						}
 
-						err = fieldValue.Interface().(sqlx.Scanner).Scan(v)
+						err = fieldValue.Interface().(sql.Scanner).Scan(v)
 					}
 					return
 				}
-			} else if _, ok := fieldValue.Interface().(sqlx.Scanner); ok {
+			} else if _, ok := fieldValue.Interface().(sql.Scanner); ok {
 				// struct scanner
 				field.Set = func(ctx context.Context, value reflect.Value, v interface{}) (err error) {
 					reflectV := reflect.ValueOf(v)
@@ -893,7 +893,7 @@ func (field *Field) setupValuerAndSetter() {
 							v, _ = valuer.Value()
 						}
 
-						err = field.ReflectValueOf(ctx, value).Addr().Interface().(sqlx.Scanner).Scan(v)
+						err = field.ReflectValueOf(ctx, value).Addr().Interface().(sql.Scanner).Scan(v)
 					}
 					return
 				}

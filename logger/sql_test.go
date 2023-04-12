@@ -1,9 +1,9 @@
 package logger_test
 
 import (
+	"dbpool/driver"
 	"encoding/json"
 	"fmt"
-	"gorm.io/gorm/database/sqlx/driver"
 	"regexp"
 	"strings"
 	"testing"

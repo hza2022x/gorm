@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"context"
-	"gorm.io/gorm/database/sqlx"
+	"dbpool"
 	"os"
 	"reflect"
 	"testing"
@@ -13,32 +13,32 @@ import (
 )
 
 type wrapperTx struct {
-	*sqlx.Tx
+	*sql.Tx
 	conn *wrapperConnPool
 }
 
-func (c *wrapperTx) PrepareContext(ctx context.Context, query string) (*sqlx.Stmt, error) {
+func (c *wrapperTx) PrepareContext(ctx context.Context, query string) (*sql.Stmt, error) {
 	c.conn.got = append(c.conn.got, query)
 	return c.Tx.PrepareContext(ctx, query)
 }
 
-func (c *wrapperTx) ExecContext(ctx context.Context, query string, args ...interface{}) (sqlx.Result, error) {
+func (c *wrapperTx) ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error) {
 	c.conn.got = append(c.conn.got, query)
 	return c.Tx.ExecContext(ctx, query, args...)
 }
 
-func (c *wrapperTx) QueryContext(ctx context.Context, query string, args ...interface{}) (*sqlx.Rows, error) {
+func (c *wrapperTx) QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error) {
 	c.conn.got = append(c.conn.got, query)
 	return c.Tx.QueryContext(ctx, query, args...)
 }
 
-func (c *wrapperTx) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sqlx.Row {
+func (c *wrapperTx) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row {
 	c.conn.got = append(c.conn.got, query)
 	return c.Tx.QueryRowContext(ctx, query, args...)
 }
 
 type wrapperConnPool struct {
-	db     *sqlx.DB
+	db     *sql.DB
 	got    []string
 	expect []string
 }
@@ -52,7 +52,7 @@ func (c *wrapperConnPool) Ping() error {
 //	 return c.db.BeginTx(ctx, opts)
 // }
 // You should use BeginTx returned gorm.Tx which could wrap *sqlx.Tx then you can record all queries.
-func (c *wrapperConnPool) BeginTx(ctx context.Context, opts *sqlx.TxOptions) (gorm.ConnPool, error) {
+func (c *wrapperConnPool) BeginTx(ctx context.Context, opts *sql.TxOptions) (gorm.ConnPool, error) {
 	tx, err := c.db.BeginTx(ctx, opts)
 	if err != nil {
 		return nil, err
@@ -60,22 +60,22 @@ func (c *wrapperConnPool) BeginTx(ctx context.Context, opts *sqlx.TxOptions) (go
 	return &wrapperTx{Tx: tx, conn: c}, nil
 }
 
-func (c *wrapperConnPool) PrepareContext(ctx context.Context, query string) (*sqlx.Stmt, error) {
+func (c *wrapperConnPool) PrepareContext(ctx context.Context, query string) (*sql.Stmt, error) {
 	c.got = append(c.got, query)
 	return c.db.PrepareContext(ctx, query)
 }
 
-func (c *wrapperConnPool) ExecContext(ctx context.Context, query string, args ...interface{}) (sqlx.Result, error) {
+func (c *wrapperConnPool) ExecContext(ctx context.Context, query string, args ...interface{}) (sql.Result, error) {
 	c.got = append(c.got, query)
 	return c.db.ExecContext(ctx, query, args...)
 }
 
-func (c *wrapperConnPool) QueryContext(ctx context.Context, query string, args ...interface{}) (*sqlx.Rows, error) {
+func (c *wrapperConnPool) QueryContext(ctx context.Context, query string, args ...interface{}) (*sql.Rows, error) {
 	c.got = append(c.got, query)
 	return c.db.QueryContext(ctx, query, args...)
 }
 
-func (c *wrapperConnPool) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sqlx.Row {
+func (c *wrapperConnPool) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row {
 	c.got = append(c.got, query)
 	return c.db.QueryRowContext(ctx, query, args...)
 }
@@ -90,7 +90,7 @@ func TestConnPoolWrapper(t *testing.T) {
 	if dbDSN == "" {
 		dbDSN = "gorm:gorm@tcp(localhost:9910)/gorm?charset=utf8&parseTime=True&loc=Local"
 	}
-	nativeDB, err := sqlx.Open("mysql", dbDSN)
+	nativeDB, err := sql.Open("mysql", dbDSN)
 	if err != nil {
 		t.Fatalf("Should open db success, but got %v", err)
 	}

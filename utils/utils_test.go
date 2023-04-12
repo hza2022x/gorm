@@ -1,9 +1,9 @@
 package utils
 
 import (
+	"dbpool"
+	"dbpool/driver"
 	"errors"
-	"gorm.io/gorm/database/sqlx"
-	"gorm.io/gorm/database/sqlx/driver"
 	"math"
 	"strings"
 	"testing"
@@ -77,7 +77,7 @@ func TestContains(t *testing.T) {
 	}
 }
 
-type ModifyAt sqlx.NullTime
+type ModifyAt sql.NullTime
 
 // Value return a Unix time.
 func (n ModifyAt) Value() (driver.Value, error) {

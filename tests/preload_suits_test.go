@@ -1,7 +1,7 @@
 package tests_test
 
 import (
-	"gorm.io/gorm/database/sqlx"
+	"dbpool"
 	"encoding/json"
 	"reflect"
 	"sort"
@@ -533,9 +533,9 @@ type LevelA2 struct {
 type LevelA3 struct {
 	ID        uint
 	Value     string
-	LevelA1ID sqlx.NullInt64
+	LevelA1ID sql.NullInt64
 	LevelA1   *LevelA1
-	LevelA2ID sqlx.NullInt64
+	LevelA2ID sql.NullInt64
 	LevelA2   *LevelA2
 }
 
@@ -595,7 +595,7 @@ type LevelB2 struct {
 type LevelB3 struct {
 	ID        uint
 	Value     string
-	LevelB1ID sqlx.NullInt64
+	LevelB1ID sql.NullInt64
 	LevelB1   *LevelB1
 	LevelB2s  []*LevelB2 `gorm:"many2many:levelb1_levelb3_levelb2s" json:",omitempty"`
 }
@@ -613,7 +613,7 @@ func TestNestedPreload11(t *testing.T) {
 
 	levelB3 := &LevelB3{
 		Value:     "bar",
-		LevelB1ID: sqlx.NullInt64{Valid: true, Int64: int64(levelB1.ID)},
+		LevelB1ID: sql.NullInt64{Valid: true, Int64: int64(levelB1.ID)},
 		LevelB2s:  []*LevelB2{},
 	}
 	if err := DB.Create(levelB3).Error; err != nil {
@@ -795,7 +795,7 @@ func TestManyToManyPreloadForNestedPointer(t *testing.T) {
 		Level3 struct {
 			ID       uint
 			Value    string
-			Level2ID sqlx.NullInt64
+			Level2ID sql.NullInt64
 			Level2   *Level2
 		}
 	)
@@ -957,7 +957,7 @@ func TestNestedManyToManyPreload2(t *testing.T) {
 		Level3 struct {
 			ID       uint
 			Value    string
-			Level2ID sqlx.NullInt64
+			Level2ID sql.NullInt64
 			Level2   *Level2
 		}
 	)
@@ -1012,7 +1012,7 @@ func TestNestedManyToManyPreload3(t *testing.T) {
 		Level3 struct {
 			ID       uint
 			Value    string
-			Level2ID sqlx.NullInt64
+			Level2ID sql.NullInt64
 			Level2   *Level2
 		}
 	)
@@ -1084,7 +1084,7 @@ func TestNestedManyToManyPreload3ForStruct(t *testing.T) {
 		Level3 struct {
 			ID       uint
 			Value    string
-			Level2ID sqlx.NullInt64
+			Level2ID sql.NullInt64
 			Level2   Level2
 		}
 	)
@@ -1350,7 +1350,7 @@ func TestNilPointerSlice2(t *testing.T) {
 		}
 		Level3 struct {
 			ID       uint
-			Level4ID sqlx.NullInt64 `sql:"index"`
+			Level4ID sql.NullInt64 `sql:"index"`
 			Level4   *Level4
 		}
 		Level2 struct {
@@ -1359,7 +1359,7 @@ func TestNilPointerSlice2(t *testing.T) {
 		}
 		Level1 struct {
 			ID       uint
-			Level2ID sqlx.NullInt64 `sql:"index"`
+			Level2ID sql.NullInt64 `sql:"index"`
 			Level2   *Level2
 		}
 	)
@@ -1401,13 +1401,13 @@ func TestPrefixedPreloadDuplication(t *testing.T) {
 		Level2 struct {
 			ID       uint
 			Name     string
-			Level3ID sqlx.NullInt64 `sql:"index"`
+			Level3ID sql.NullInt64 `sql:"index"`
 			Level3   *Level3
 		}
 		Level1 struct {
 			ID       uint
 			Name     string
-			Level2ID sqlx.NullInt64 `sql:"index"`
+			Level2ID sql.NullInt64 `sql:"index"`
 			Level2   *Level2
 		}
 	)

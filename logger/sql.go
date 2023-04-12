@@ -1,8 +1,8 @@
 package logger
 
 import (
+	"dbpool/driver"
 	"fmt"
-	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 	"regexp"
 	"strconv"

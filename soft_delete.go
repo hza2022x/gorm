@@ -1,20 +1,20 @@
 package gorm
 
 import (
+	"dbpool"
+	"dbpool/driver"
 	"encoding/json"
-	"gorm.io/gorm/database/sqlx"
-	"gorm.io/gorm/database/sqlx/driver"
 	"reflect"
 
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
 )
 
-type DeletedAt sqlx.NullTime
+type DeletedAt sql.NullTime
 
 // Scan implements the Scanner interface.
 func (n *DeletedAt) Scan(value interface{}) error {
-	return (*sqlx.NullTime)(n).Scan(value)
+	return (*sql.NullTime)(n).Scan(value)
 }
 
 // Value implements the driver Valuer interface.

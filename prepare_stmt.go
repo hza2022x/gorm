@@ -2,13 +2,13 @@ package gorm
 
 import (
 	"context"
-	"gorm.io/gorm/database/sqlx"
+	"dbpool"
 
 	"sync"
 )
 
 type Stmt struct {
-	*sqlx.Stmt
+	*sql.Stmt
 	Transaction bool
 	prepared    chan struct{}
 	prepareErr  error
@@ -21,12 +21,12 @@ type PreparedStmtDB struct {
 	ConnPool
 }
 
-func (db *PreparedStmtDB) GetDBConn() (*sqlx.DB, error) {
+func (db *PreparedStmtDB) GetDBConn() (*sql.DB, error) {
 	if dbConnector, ok := db.ConnPool.(GetDBConnector); ok && dbConnector != nil {
 		return dbConnector.GetDBConn()
 	}
 
-	if sqldb, ok := db.ConnPool.(*sqlx.DB); ok {
+	if sqldb, ok := db.ConnPool.(*sql.DB); ok {
 		return sqldb, nil
 	}
 
@@ -113,7 +113,7 @@ func (db *PreparedStmtDB) prepare(ctx context.Context, conn ConnPool, isTransact
 	return cacheStmt, nil
 }
 
-func (db *PreparedStmtDB) BeginTx(ctx context.Context, opt *sqlx.TxOptions) (ConnPool, error) {
+func (db *PreparedStmtDB) BeginTx(ctx context.Context, opt *sql.TxOptions) (ConnPool, error) {
 	if beginner, ok := db.ConnPool.(TxBeginner); ok {
 		tx, err := beginner.BeginTx(ctx, opt)
 		return &PreparedStmtTX{PreparedStmtDB: db, Tx: tx}, err
@@ -121,7 +121,7 @@ func (db *PreparedStmtDB) BeginTx(ctx context.Context, opt *sqlx.TxOptions) (Con
 	return nil, ErrInvalidTransaction
 }
 
-func (db *PreparedStmtDB) ExecContext(ctx context.Context, query string, args ...interface{}) (result sqlx.Result, err error) {
+func (db *PreparedStmtDB) ExecContext(ctx context.Context, query string, args ...interface{}) (result sql.Result, err error) {
 	stmt, err := db.prepare(ctx, db.ConnPool, false, query)
 	if err == nil {
 		result, err = stmt.ExecContext(ctx, args...)
@@ -135,7 +135,7 @@ func (db *PreparedStmtDB) ExecContext(ctx context.Context, query string, args ..
 	return result, err
 }
 
-func (db *PreparedStmtDB) QueryContext(ctx context.Context, query string, args ...interface{}) (rows *sqlx.Rows, err error) {
+func (db *PreparedStmtDB) QueryContext(ctx context.Context, query string, args ...interface{}) (rows *sql.Rows, err error) {
 	stmt, err := db.prepare(ctx, db.ConnPool, false, query)
 	if err == nil {
 		rows, err = stmt.QueryContext(ctx, args...)
@@ -150,12 +150,12 @@ func (db *PreparedStmtDB) QueryContext(ctx context.Context, query string, args .
 	return rows, err
 }
 
-func (db *PreparedStmtDB) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sqlx.Row {
+func (db *PreparedStmtDB) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row {
 	stmt, err := db.prepare(ctx, db.ConnPool, false, query)
 	if err == nil {
 		return stmt.QueryRowContext(ctx, args...)
 	}
-	return &sqlx.Row{}
+	return &sql.Row{}
 }
 
 type PreparedStmtTX struct {
@@ -177,7 +177,7 @@ func (tx *PreparedStmtTX) Rollback() error {
 	return ErrInvalidTransaction
 }
 
-func (tx *PreparedStmtTX) ExecContext(ctx context.Context, query string, args ...interface{}) (result sqlx.Result, err error) {
+func (tx *PreparedStmtTX) ExecContext(ctx context.Context, query string, args ...interface{}) (result sql.Result, err error) {
 	stmt, err := tx.PreparedStmtDB.prepare(ctx, tx.Tx, true, query)
 	if err == nil {
 		result, err = tx.Tx.StmtContext(ctx, stmt.Stmt).ExecContext(ctx, args...)
@@ -192,7 +192,7 @@ func (tx *PreparedStmtTX) ExecContext(ctx context.Context, query string, args ..
 	return result, err
 }
 
-func (tx *PreparedStmtTX) QueryContext(ctx context.Context, query string, args ...interface{}) (rows *sqlx.Rows, err error) {
+func (tx *PreparedStmtTX) QueryContext(ctx context.Context, query string, args ...interface{}) (rows *sql.Rows, err error) {
 	stmt, err := tx.PreparedStmtDB.prepare(ctx, tx.Tx, true, query)
 	if err == nil {
 		rows, err = tx.Tx.StmtContext(ctx, stmt.Stmt).QueryContext(ctx, args...)
@@ -207,10 +207,10 @@ func (tx *PreparedStmtTX) QueryContext(ctx context.Context, query string, args .
 	return rows, err
 }
 
-func (tx *PreparedStmtTX) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sqlx.Row {
+func (tx *PreparedStmtTX) QueryRowContext(ctx context.Context, query string, args ...interface{}) *sql.Row {
 	stmt, err := tx.PreparedStmtDB.prepare(ctx, tx.Tx, true, query)
 	if err == nil {
 		return tx.Tx.StmtContext(ctx, stmt.Stmt).QueryRowContext(ctx, args...)
 	}
-	return &sqlx.Row{}
+	return &sql.Row{}
 }

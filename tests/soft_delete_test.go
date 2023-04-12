@@ -3,7 +3,7 @@ package tests_test
 import (
 	"encoding/json"
 	"errors"
-	"gorm.io/gorm/database/sqlx"
+	"dbpool"
 	"regexp"
 	"testing"
 
@@ -30,7 +30,7 @@ func TestSoftDelete(t *testing.T) {
 		t.Fatalf("No error should happen when soft delete user, but got %v", err)
 	}
 
-	if sqlx.NullTime(user.DeletedAt).Time.IsZero() {
+	if sql.NullTime(user.DeletedAt).Time.IsZero() {
 		t.Fatalf("user's deleted at is zero")
 	}
 
