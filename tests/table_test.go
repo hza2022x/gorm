@@ -4,10 +4,10 @@ import (
 	"regexp"
 	"testing"
 
-	"gorm.io/gorm"
-	"gorm.io/gorm/schema"
-	"gorm.io/gorm/utils/tests"
-	. "gorm.io/gorm/utils/tests"
+	"gorm.io/gormx"
+	"gorm.io/gormx/schema"
+	"gorm.io/gormx/utils/tests"
+	. "gorm.io/gormx/utils/tests"
 )
 
 type UserWithTable struct {

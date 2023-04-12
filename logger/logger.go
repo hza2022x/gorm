@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"gorm.io/gorm/utils"
+	"gorm.io/gormx/utils"
 )
 
 // ErrRecordNotFound record not found error

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"gorm.io/gorm/clause"
+	"gorm.io/gormx/clause"
 )
 
 func TestSet(t *testing.T) {

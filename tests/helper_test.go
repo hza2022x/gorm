@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	. "gorm.io/gorm/utils/tests"
+	. "gorm.io/gormx/utils/tests"
 )
 
 type Config struct {

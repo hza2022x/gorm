@@ -4,8 +4,8 @@ import (
 	"context"
 	"dbpool"
 
-	"gorm.io/gorm/clause"
-	"gorm.io/gorm/schema"
+	"gorm.io/gormx/clause"
+	"gorm.io/gormx/schema"
 )
 
 // Dialector GORM database dialector

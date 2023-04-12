@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"reflect"
 
-	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
-	"gorm.io/gorm/schema"
-	"gorm.io/gorm/utils"
+	"gorm.io/gormx"
+	"gorm.io/gormx/clause"
+	"gorm.io/gormx/schema"
+	"gorm.io/gormx/utils"
 )
 
 // BeforeCreate before create hooks

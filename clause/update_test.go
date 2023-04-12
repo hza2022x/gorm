@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"gorm.io/gorm/clause"
+	"gorm.io/gormx/clause"
 )
 
 func TestUpdate(t *testing.T) {

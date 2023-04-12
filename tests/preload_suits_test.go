@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"gorm.io/gorm"
+	"gorm.io/gormx"
 )
 
 func toJSONString(v interface{}) []byte {

@@ -4,8 +4,8 @@ import (
 	"dbpool"
 	"time"
 
-	"gorm.io/gorm"
-	"gorm.io/gorm/utils/tests"
+	"gorm.io/gormx"
+	"gorm.io/gormx/utils/tests"
 )
 
 type User struct {

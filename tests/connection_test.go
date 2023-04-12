@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"gorm.io/gorm"
+	"gorm.io/gormx"
 	"mysql"
 )
 

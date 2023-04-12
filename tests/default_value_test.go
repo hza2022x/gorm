@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"gorm.io/gorm"
+	"gorm.io/gormx"
 )
 
 func TestDefaultValue(t *testing.T) {
