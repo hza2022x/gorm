@@ -2,9 +2,9 @@ package schema
 
 import (
 	"context"
+	"database/sql/driver"
 	"fmt"
 	"gorm.io/dbpool"
-	"gorm.io/dbpool/driver"
 	"reflect"
 	"strconv"
 	"strings"

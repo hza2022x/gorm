@@ -1,8 +1,8 @@
 package gorm
 
 import (
+	"database/sql/driver"
 	sql "gorm.io/dbpool"
-	"gorm.io/dbpool/driver"
 	"reflect"
 	"strings"
 	"time"

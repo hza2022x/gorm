@@ -11,8 +11,8 @@ import (
 	"strings"
 	"sync"
 
+	"database/sql/driver"
 	"gorm.io/dbpool"
-	"gorm.io/dbpool/driver"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"

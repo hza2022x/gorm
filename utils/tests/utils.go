@@ -1,9 +1,9 @@
 package tests
 
 import (
+	"database/sql/driver"
 	"fmt"
 	"go/ast"
-	"gorm.io/dbpool/driver"
 	"reflect"
 	"testing"
 	"time"

@@ -1,9 +1,9 @@
 package gorm
 
 import (
+	"database/sql/driver"
 	"encoding/json"
 	"gorm.io/dbpool"
-	"gorm.io/dbpool/driver"
 	"reflect"
 
 	"gorm.io/gorm/clause"
