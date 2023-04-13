@@ -1,9 +1,9 @@
 package clause
 
 import (
-	"dbpool"
-	"dbpool/driver"
 	"go/ast"
+	"gorm.io/dbpool"
+	"gorm.io/dbpool/driver"
 	"reflect"
 )
 

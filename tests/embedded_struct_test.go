@@ -1,9 +1,9 @@
 package tests_test
 
 import (
-	"dbpool/driver"
 	"encoding/json"
 	"errors"
+	"gorm.io/dbpool/driver"
 	"testing"
 
 	"gorm.io/gorm"

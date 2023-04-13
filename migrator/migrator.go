@@ -2,9 +2,9 @@ package migrator
 
 import (
 	"context"
-	"dbpool"
 	"errors"
 	"fmt"
+	"gorm.io/dbpool"
 	"reflect"
 	"regexp"
 	"strings"

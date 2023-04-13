@@ -2,8 +2,7 @@ package gorm
 
 import (
 	"context"
-	"dbpool"
-
+	"gorm.io/dbpool"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
 )

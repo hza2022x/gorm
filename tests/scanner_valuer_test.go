@@ -2,11 +2,10 @@ package tests_test
 
 import (
 	"context"
-	"dbpool"
-	"dbpool/driver"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"gorm.io/dbpool/driver"
 	"reflect"
 	"regexp"
 	"strconv"

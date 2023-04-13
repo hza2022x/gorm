@@ -2,7 +2,7 @@ package schema_test
 
 import (
 	"context"
-	"dbpool"
+	"gorm.io/dbpool"
 	"reflect"
 	"sync"
 	"testing"

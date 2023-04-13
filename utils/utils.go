@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"dbpool/driver"
 	"fmt"
+	"gorm.io/dbpool/driver"
 	"path/filepath"
 	"reflect"
 	"runtime"

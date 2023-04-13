@@ -2,9 +2,8 @@ package gorm
 
 import (
 	"context"
-	"dbpool"
-	"dbpool/driver"
 	"fmt"
+
 	"reflect"
 	"regexp"
 	"sort"
@@ -12,6 +11,8 @@ import (
 	"strings"
 	"sync"
 
+	"gorm.io/dbpool"
+	"gorm.io/dbpool/driver"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"

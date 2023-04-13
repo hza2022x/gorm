@@ -1,12 +1,12 @@
 package gorm
 
 import (
-	"dbpool"
 	"errors"
 	"fmt"
 	"reflect"
 	"strings"
 
+	"gorm.io/dbpool"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"

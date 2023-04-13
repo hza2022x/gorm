@@ -1,7 +1,7 @@
 package tests_test
 
 import (
-	"dbpool"
+	"gorm.io/dbpool"
 	"testing"
 	"time"
 

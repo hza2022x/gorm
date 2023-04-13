@@ -2,12 +2,12 @@ package gorm
 
 import (
 	"context"
-	"dbpool"
 	"fmt"
 	"sort"
 	"sync"
 	"time"
 
+	"gorm.io/dbpool"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"

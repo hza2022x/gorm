@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"errors"
-	"dbpool"
+	"gorm.io/dbpool"
 	"testing"
 
 	"gorm.io/gorm"

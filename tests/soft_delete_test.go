@@ -3,7 +3,7 @@ package tests_test
 import (
 	"encoding/json"
 	"errors"
-	"dbpool"
+	"gorm.io/dbpool"
 	"regexp"
 	"testing"
 

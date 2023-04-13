@@ -3,11 +3,11 @@ package schema
 import (
 	"bytes"
 	"context"
-	"dbpool"
-	"dbpool/driver"
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	"gorm.io/dbpool"
+	"gorm.io/dbpool/driver"
 	"reflect"
 	"strings"
 	"sync"

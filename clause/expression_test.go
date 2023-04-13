@@ -1,8 +1,8 @@
 package clause_test
 
 import (
-	"dbpool"
 	"fmt"
+	"gorm.io/dbpool"
 	"reflect"
 	"sync"
 	"testing"

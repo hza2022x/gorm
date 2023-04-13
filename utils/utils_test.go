@@ -1,9 +1,8 @@
 package utils
 
 import (
-	"dbpool"
-	"dbpool/driver"
 	"errors"
+	"gorm.io/dbpool/driver"
 	"math"
 	"strings"
 	"testing"

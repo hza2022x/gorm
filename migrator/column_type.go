@@ -1,7 +1,7 @@
 package migrator
 
 import (
-	"dbpool"
+	"gorm.io/dbpool"
 	"reflect"
 )
 

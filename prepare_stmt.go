@@ -2,7 +2,7 @@ package gorm
 
 import (
 	"context"
-	"dbpool"
+	"gorm.io/dbpool"
 
 	"sync"
 )
