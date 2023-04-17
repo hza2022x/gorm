@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"fmt"
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"reflect"
 	"regexp"
 	"sort"

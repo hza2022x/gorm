@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"time"
 
 	"gorm.io/gorm"

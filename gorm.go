@@ -7,10 +7,10 @@ import (
 	"sync"
 	"time"
 
-	"gorm.io/dbpool"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
+	"gorm.io/sqlx"
 )
 
 // for Config.cacheStore store PreparedStmtDB key
@@ -464,12 +464,12 @@ func (db *DB) Use(plugin Plugin) error {
 
 // ToSQL for generate SQL string.
 //
-// db.ToSQL(func(tx *gorm.DB) *gorm.DB {
-// 		return tx.Model(&User{}).Where(&User{Name: "foo", Age: 20})
-// 			.Limit(10).Offset(5)
-//			.Order("name ASC")
-//			.First(&User{})
-// })
+//	db.ToSQL(func(tx *gorm.DB) *gorm.DB {
+//			return tx.Model(&User{}).Where(&User{Name: "foo", Age: 20})
+//				.Limit(10).Offset(5)
+//				.Order("name ASC")
+//				.First(&User{})
+//	})
 func (db *DB) ToSQL(queryFn func(tx *DB) *DB) string {
 	tx := queryFn(db.Session(&Session{DryRun: true, SkipDefaultTransaction: true}))
 	stmt := tx.Statement

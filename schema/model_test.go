@@ -1,7 +1,7 @@
 package schema_test
 
 import (
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"time"
 
 	"gorm.io/gorm"

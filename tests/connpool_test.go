@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"context"
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"os"
 	"reflect"
 	"testing"

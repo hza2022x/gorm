@@ -1,6 +1,6 @@
 package migrator
 
-import "gorm.io/dbpool"
+import "gorm.io/sqlx"
 
 // Index implements gorm.Index interface
 type Index struct {

@@ -7,7 +7,7 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"reflect"
 	"strings"
 	"sync"

@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"reflect"
 	"regexp"
 	"strings"

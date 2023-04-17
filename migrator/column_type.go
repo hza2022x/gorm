@@ -1,7 +1,7 @@
 package migrator
 
 import (
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"reflect"
 )
 

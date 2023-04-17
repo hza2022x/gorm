@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"errors"
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"testing"
 
 	"gorm.io/gorm"

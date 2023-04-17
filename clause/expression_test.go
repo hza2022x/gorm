@@ -2,7 +2,7 @@ package clause_test
 
 import (
 	"fmt"
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"reflect"
 	"sync"
 	"testing"

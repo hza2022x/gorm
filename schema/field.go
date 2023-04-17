@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql/driver"
 	"fmt"
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"reflect"
 	"strconv"
 	"strings"

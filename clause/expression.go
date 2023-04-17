@@ -3,7 +3,7 @@ package clause
 import (
 	"database/sql/driver"
 	"go/ast"
-	"gorm.io/dbpool"
+	"gorm.io/sqlx"
 	"reflect"
 )
 
