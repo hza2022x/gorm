@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"reflect"
 	"regexp"
 	"strings"

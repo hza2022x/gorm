@@ -3,7 +3,7 @@ package gorm
 import (
 	"database/sql/driver"
 	"encoding/json"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"reflect"
 
 	"gorm.io/gorm/clause"

@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql/driver"
 	"fmt"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"reflect"
 	"strconv"
 	"strings"

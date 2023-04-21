@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"fmt"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"reflect"
 	"regexp"
 	"sort"

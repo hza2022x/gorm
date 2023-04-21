@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"errors"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"testing"
 
 	"gorm.io/gorm"

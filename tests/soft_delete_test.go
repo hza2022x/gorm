@@ -3,7 +3,7 @@ package tests_test
 import (
 	"encoding/json"
 	"errors"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"regexp"
 	"testing"
 

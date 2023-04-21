@@ -2,7 +2,7 @@ package tests_test
 
 import (
 	"context"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"os"
 	"reflect"
 	"testing"

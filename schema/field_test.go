@@ -2,7 +2,7 @@ package schema_test
 
 import (
 	"context"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"reflect"
 	"sync"
 	"testing"

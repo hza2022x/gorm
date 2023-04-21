@@ -2,7 +2,7 @@ package gorm
 
 import (
 	"context"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 
 	"sync"
 )

@@ -2,7 +2,7 @@ package clause_test
 
 import (
 	"fmt"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"reflect"
 	"sync"
 	"testing"

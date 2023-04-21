@@ -6,11 +6,11 @@ import (
 	"reflect"
 	"strings"
 
+	"gopkg.inshopline.com/commons/sqlx"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 	"gorm.io/gorm/utils"
-	"gorm.io/sqlx"
 )
 
 // Create inserts value, returning the inserted data's primary key in value's id

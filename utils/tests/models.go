@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"time"
 
 	"gorm.io/gorm"

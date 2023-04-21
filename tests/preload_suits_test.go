@@ -1,7 +1,7 @@
 package tests_test
 
 import (
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"encoding/json"
 	"reflect"
 	"sort"

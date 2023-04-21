@@ -7,7 +7,7 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"reflect"
 	"strings"
 	"sync"

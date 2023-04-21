@@ -2,9 +2,9 @@ package gorm
 
 import (
 	"context"
+	"gopkg.inshopline.com/commons/sqlx"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
-	"gorm.io/sqlx"
 )
 
 // Dialector GORM database dialector

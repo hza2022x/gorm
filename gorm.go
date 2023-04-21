@@ -7,10 +7,10 @@ import (
 	"sync"
 	"time"
 
+	"gopkg.inshopline.com/commons/sqlx"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
-	"gorm.io/sqlx"
 )
 
 // for Config.cacheStore store PreparedStmtDB key

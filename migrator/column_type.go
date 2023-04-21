@@ -1,7 +1,7 @@
 package migrator
 
 import (
-	"gorm.io/sqlx"
+	"gopkg.inshopline.com/commons/sqlx"
 	"reflect"
 )
 

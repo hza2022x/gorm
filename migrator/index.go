@@ -1,6 +1,6 @@
 package migrator
 
-import "gorm.io/sqlx"
+import "gopkg.inshopline.com/commons/sqlx"
 
 // Index implements gorm.Index interface
 type Index struct {
